@@ -109,11 +109,9 @@
 	</div>
 	</footer>
 </body>
-</html>
-<script>
-	
+<script>	
 	if(${type eq "success"}){
 		alert("success");
 	}
-
 </script>
+</html>

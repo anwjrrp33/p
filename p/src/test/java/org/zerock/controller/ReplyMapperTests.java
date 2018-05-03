@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
 import org.zerock.mapper.ReplyMapper;
 
@@ -31,9 +32,9 @@ public class ReplyMapperTests {
 	
 	@Test
 	public void testList() {
-		
-		int bno = 600;
-		log.info(mapper.listReply(bno));
+		Criteria cri = new Criteria(1);
+		int bno = 394;
+		log.info(mapper.listReply(cri, bno));
 	}
 	
 	@Test
