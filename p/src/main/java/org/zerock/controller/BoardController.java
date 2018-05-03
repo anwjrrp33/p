@@ -40,16 +40,14 @@ public class BoardController {
 
 		if (cri.getKeyword() == null) {
 			list = mapper.getList(cri);
-			total = mapper.getTotal();
+			total = mapper.getTotal(cri);
 		} else {
 			list = bmapper.search(cri);
-			log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+cri.getKeyword());
-			log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+cri.getType());
-			log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+list.toString());
+			total = mapper.getTotal(cri);
 		}
 
-		PageMaker maker = new PageMaker(cri.getPage(), mapper.getTotal());
-
+		PageMaker maker = new PageMaker(cri.getPage(), mapper.getTotal(cri));
+		model.addAttribute("cri", cri);
 		model.addAttribute("list", list);
 		model.addAttribute("maker", maker);
 	}

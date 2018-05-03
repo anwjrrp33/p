@@ -9,7 +9,8 @@
 <title>Insert title here</title>
 
 <!-- Bootstrap core CSS-->
-<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- Custom fonts for this template-->
 <link href="/resources/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
@@ -39,45 +40,59 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${list}" var="list">
-						<tr>
-							<td><a href="/board/view?bno=${list.bno}">${list.bno}</a></td>
-							<td>${list.title}</td>
-							<td>${list.writer}</td>
-							<td>${list.regdate}</td>
-						</tr>
+							<tr>
+								<td><a href="/board/view?bno=${list.bno}">${list.bno}</a></td>
+								<td>${list.title}</td>
+								<td>${list.writer}</td>
+								<td>${list.regdate}</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 			<form>
-			
-			<select name="type">
-			
-				<option value="">검색조건</option>
-				<option value="t">title</option>
-				<option value="c">content</option>
-				<option value="w">writer</option>
-				<option value="tc">title+content</option>
-				<option value="tw">title+writer</option>
-				<option value="wc">content+writer</option>
-				<option value="twc">title+content+writer</option>
-				
-			</select>
-			<input type="text" name="keyword"> <a href=""><button> 확인 </button></a>
-			
-			</form>					
+
+				<select name="type">
+
+					<option>검색조건</option>
+					<option value="t">title</option>
+					<option value="c">content</option>
+					<option value="w">writer</option>
+					<option value="tc">title+content</option>
+					<option value="tw">title+writer</option>
+					<option value="wc">content+writer</option>
+					<option value="twc">title+content+writer</option>
+
+				</select> <input type="text" name="keyword">
+				<button>확인</button>
+				</a>
+
+			</form>
 			<div class="col-sm-12 col-md-7">
-			<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-				<ul class="pagination">
-				<c:if test="${maker.prev}">
-				<li class="paginate_button page-item"><a class="page-link" href="/board/list?page=${maker.start-1}">Previous</a><li></c:if>
-					<c:forEach var="maker" begin="${maker.start}" end="${maker.end}">
-						<li class="paginate_button page-item"><a class="page-link" href="/board/list?page=${maker}">${maker}</a></li>
-					</c:forEach>
-					<c:if test="${maker.next}">
-				<li class="paginate_button page-item"><a class="page-link" href="/board/list?page=${maker.end+1}">Next</a></li></c:if>
-				</ul>
-			</div>	
+				<div class="dataTables_paginate paging_simple_numbers"
+					id="dataTable_paginate">
+					<ul class="pagination">
+						<c:if test="${maker.prev}">
+							<li class="paginate_button page-item"><a class="page-link"
+								href="/board/list?page=${maker.start-1}">Previous</a>
+							<li>
+						</c:if>
+						<c:forEach var="maker" begin="${maker.start}" end="${maker.end}">
+							<c:if test="${cri.type != null}">
+								<li class="paginate_button page-item"><a class="page-link"
+									href="/board/list?page=${maker}&type=${cri.type}&keyword=${cri.keyword}">${maker}</a></li>
+							</c:if>
+							<c:if test="${cri.type == null}">
+								<li class="paginate_button page-item"><a class="page-link"
+									href="/board/list?page=${maker}">${maker}</a></li>
+							</c:if>
+						</c:forEach>
+						<c:if test="${maker.next}">
+							<li class="paginate_button page-item"><a class="page-link"
+								href="/board/list?page=${maker.end+1}">Next</a></li>
+						</c:if>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="card-footer small text-muted">Updated yesterday at
