@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
-import org.zerock.util.PageMaker;
 
 public interface ReplyMapper {
 
@@ -18,4 +17,6 @@ public interface ReplyMapper {
 	public int deleteReply(int rno);
 	
 	public int getTotal(int bno);
+	
+	public ReplyVO readReply(int rno);
 }

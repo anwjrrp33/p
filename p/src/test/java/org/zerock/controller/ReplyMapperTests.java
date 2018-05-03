@@ -52,4 +52,11 @@ public class ReplyMapperTests {
 		int rno = 13;
 		log.info(mapper.deleteReply(rno));
 	}
+	
+	@Test
+	public void testRead() {
+		
+		int rno = 10;
+		log.info(mapper.readReply(rno));
+	}
 }

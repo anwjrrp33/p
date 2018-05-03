@@ -7,6 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<style>
+	div {
+		margin:50px;
+	}
+</style>
+
 	<div>
 		<h1>In View Page</h1>
 		<input type="text" class="bno" name='bno' value="${vo.bno}"
@@ -22,6 +29,12 @@
 		</form>
 	</div>
 
+	<div class="replyForm">
+		<input type="text" class="replyer" name="replyer">
+		<input type="text" class="reple" name="reple">
+		<button class="replybtn">reply</button>
+	</div>
+
 	<div>
 		<ul class="replyUL">
 
@@ -34,10 +47,9 @@
 	crossorigin="anonymous"></script>
 
 <script>
+	var bno = ${vo.bno};
 	
-	$(document).ready(function(data) {
-		var bno = ${vo.bno};
-		
+	function getReply(){
  		$.getJSON("/reply/list/" + bno+ "/" + 1, function(data) {
 			var str = "";
 			console.log(data);
@@ -49,7 +61,64 @@
 			});
 			
 			$(".replyUL").html(str);
-		});
+		});		
+	}
+	
+	$(document).ready(function() {
+		getReply();
 	});
+	
+	$(".replybtn").on("click", function(e){
+		var replyer = $(".replyer").val();
+		var reple = $(".reple").val();
+		console.log(replyer == "");
+		console.log(replyer != "");
+		
+		if(replyer != "" && reple != ""){
+			$.ajax({
+				url : '/reply/insert',
+				type : 'post',
+				data : JSON.stringify({
+					bno : bno,
+					replyer : replyer,
+					reple : reple
+				}),
+				headers : {
+					"Content-Type" : "application/json"
+				},
+				success : function(result) {
+					if(result == 'success'){
+						alert("Insert Success");
+						getReply();
+						$(".replyer").val("");
+						$(".reple").val("");
+					}
+				}
+			}); 
+		}else{
+			alert("please Input data");
+		}
+	});
+	
+	
+	$(".replyUL").on("click", ".replyLi", function(data){
+		console.log($(this).attr("data-rno"));
+		
+		
+	});
+	
 </script>
 </html>
+$.getJSON("/reply/list/" + bno+ "/" + 1, function(data) {
+			var str = "";
+			console.log(data);
+			console.log(data.length);
+
+			$(data).each(
+				function() {
+					str += "<li data-rno='" + this.rno + "' class='replyLi'>" + this.replyer + ":" + this.reple + "<li>";
+			});
+			
+			$(".replyUL").html(str);
+		});		
+	}

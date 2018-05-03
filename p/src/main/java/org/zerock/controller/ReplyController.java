@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.Criteria;
@@ -33,6 +35,20 @@ public class ReplyController {
 		PageMaker maker = new PageMaker(cri.getPage(), mapper.getTotal(bno));
 		
 		return new ResponseEntity<>(mapper.listReply(cri, bno), HttpStatus.OK);
+	}
+	
+	@PostMapping("/insert")
+	public ResponseEntity<String> replyInsert(@RequestBody ReplyVO vo) {
+		
+		log.info(vo.getReple());
+		mapper.insertReply(vo);
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+	
+	@GetMapping("/list/{rno}")
+	public ResponseEntity<ReplyVO> replyRead(@PathVariable("rno") int rno) {
+		
+		return new ResponseEntity<>(mapper.readReply(rno), HttpStatus.OK);
 	}
 	
 }

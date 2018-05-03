@@ -9,7 +9,7 @@
 	</insert>
 
 	<select id="listReply" resultType="org.zerock.domain.ReplyVO">
-		select * from tbl_reply where bno = #{bno} limit #{cri.skip}, 10
+		select * from tbl_reply where bno = #{bno} order by rno desc limit #{cri.skip}, 10 
 	</select>
 	
 	<update id="updateReply">
@@ -23,5 +23,8 @@
 	<select id="getTotal" resultType="int">
 		select count(*) from tbl_reply where bno = #{bno}
 	</select>
-
+	
+	<select id="readReply" resultType="org.zerock.domain.ReplyVO">
+		select * from tbl_reply where rno = #{rno}
+	</select>
 </mapper>    
