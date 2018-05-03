@@ -7,5 +7,9 @@
 	<select id="getList" resultType="org.zerock.domain.BoardVO">
 		select * from tbl_board order by bno desc limit #{skip}, 10
 	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from tbl_board
+	</select>
 
 </mapper>

@@ -1,6 +1,5 @@
 package org.zerock.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,8 +8,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.mapper.SearchMapper;
+import org.zerock.mapper.BoardMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -18,10 +18,10 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class SearchMapperTests {
+public class BoardMapperTests {
 
 	@Setter(onMethod_ = { @Autowired })
-	private SearchMapper mapper;
+	private BoardMapper mapper;
 
 	@Test
 	public void mapSearch() {
@@ -48,14 +48,15 @@ public class SearchMapperTests {
 		mapper.search(cri);
 		
 	}
-
+	
 	@Test
-	public void searchArr() {
-		Criteria cri = new Criteria();
-
-		cri.setType("tc");
-		log.info("Type: " + Arrays.toString(cri.getArr(cri.getType())));
-
+	public void testInsert() {
+		
+		BoardVO vo = new BoardVO();
+		vo.setTitle("Test Title");
+		vo.setContent("Test Content");
+		vo.setWriter("DDDD");
+		
+		log.info(mapper.insert(vo));
 	}
-
 }

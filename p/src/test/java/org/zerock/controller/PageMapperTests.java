@@ -22,7 +22,7 @@ public class PageMapperTests {
 	@Test
 	public void testGetList() {
 		
-		Criteria cri = new Criteria(3);
+		Criteria cri = new Criteria(1);
 		
 		log.info("Page: "+cri.getPage());
 		log.info("Skip: "+cri.getSkip());
