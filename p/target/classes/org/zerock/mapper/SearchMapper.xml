@@ -5,19 +5,22 @@
 <mapper namespace="org.zerock.mapper.SearchMapper">
 	<select id="search" resultType="org.zerock.domain.BoardVO">
 		select * from tbl_board
+		<if test="arr != null">
 		<where>
-			<foreach collection="map.entrySet()" index="key" item="keyword" open="(" close=")" separator="OR">
-				<if test="key eq 't'.toString()">
+			<foreach collection="cri.arr" item="type" open="(" close=")" separator="OR">
+				<if test="type eq 't'.toString()">
 					title like concat('%', #{keyword}, '%')
 				</if>
-				<if test="key eq 'c'.toString()">
+				<if test="type eq 'c'.toString()">
 					content like concat('%', #{keyword}, '%')
 				</if>
-				<if test="key eq 'w'.toString()">
+				<if test="type eq 'w'.toString()">
 					writer like concat('%', #{keyword}, '%')
 				</if>
 			</foreach>
 		</where>
+		</if>
+		limit #{skip}, 10
 	</select>
 
 </mapper>
