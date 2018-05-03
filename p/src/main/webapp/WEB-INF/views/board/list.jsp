@@ -40,7 +40,7 @@
 					<tbody>
 						<c:forEach items="${list}" var="list">
 						<tr>
-							<td>${list.bno}</td>
+							<td><a href="/board/view?bno=${list.bno}">${list.bno}</a></td>
 							<td>${list.title}</td>
 							<td>${list.writer}</td>
 							<td>${list.regdate}</td>
@@ -51,7 +51,19 @@
 			</div>
 			<form>
 			
-			<input type="text" name="keyword"> <button> 확인 </button>
+			<select name="type">
+			
+				<option value="">검색조건</option>
+				<option value="t">title</option>
+				<option value="c">content</option>
+				<option value="w">writer</option>
+				<option value="tc">title+content</option>
+				<option value="tw">title+writer</option>
+				<option value="wc">content+writer</option>
+				<option value="twc">title+content+writer</option>
+				
+			</select>
+			<input type="text" name="keyword"> <a href=""><button> 확인 </button></a>
 			
 			</form>					
 			<div class="col-sm-12 col-md-7">

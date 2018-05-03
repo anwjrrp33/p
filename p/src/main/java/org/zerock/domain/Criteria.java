@@ -15,11 +15,11 @@ public class Criteria {
 	
 	private String[] arr;
 	
-	public String[] getArr(String type){
+	public String[] getArr(){
 		
-		this.arr = type.split("");
+		String[] types = this.type.split("");
 		
-		return this.arr;
+		return types;
 	}
 	
 	public Criteria() {

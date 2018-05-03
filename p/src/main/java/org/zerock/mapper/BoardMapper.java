@@ -14,4 +14,8 @@ public interface BoardMapper {
 	public int insert(BoardVO vo);
 	
 	public BoardVO view(Integer bno);
+	
+	public int update(BoardVO vo);
+	
+	public int delete(Integer bno);
 }

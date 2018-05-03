@@ -9,12 +9,13 @@
 <body>
 
 
+
 <form method="post">
 
 	<input type="text" name="title" value="default">
 	<input type="text" name="content" value="default">
 	<input type="text"name="writer" value="default">
-	<button>insertBtn</button>
+	<button>Update ?</button>
 	
 </form>
 

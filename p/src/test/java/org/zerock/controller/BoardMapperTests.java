@@ -37,13 +37,35 @@ public class BoardMapperTests {
 	}
 
 	@Test
+	public void viewPage() {
+		int bno = 607;
+		
+		log.info(mapper.view(bno));
+		
+	}
+	
+	@Test
+	public void insertTest() {
+		
+		BoardVO vo = new BoardVO();
+		vo.setBno(607);
+		vo.setTitle("Update Test Title");
+		vo.setContent("Update Test Content");
+		
+		log.info(mapper.update(vo));
+	}
+	
+	@Test
 	public void searchPage() {
 		
 		Criteria cri = new Criteria();
 		
-		cri.setKeyword("제목");
+		
+		cri.setKeyword("파이리");
 		
 		cri.setType("t");
+		
+		log.info("Arr: " + cri.getArr());
 		
 		mapper.search(cri);
 		
@@ -59,4 +81,29 @@ public class BoardMapperTests {
 		
 		log.info(mapper.insert(vo));
 	}
+	
+	@Test
+	public void testDelete() {
+		
+		int bno = 607;
+		
+		log.info(mapper.delete(bno));
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

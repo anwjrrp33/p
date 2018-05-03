@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import java.lang.reflect.Parameter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,35 +24,77 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class BoardController {
 
-	@Setter(onMethod_={@Autowired})	
+	@Setter(onMethod_ = { @Autowired })
 	private PageMapper mapper;
-	@Setter(onMethod_={@Autowired})
+	@Setter(onMethod_ = { @Autowired })
 	private BoardMapper bmapper;
 
-	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
-				
+
+		List<BoardVO> list = null;
+		int total;
+		
+		log.info("type" + cri.getType());
+		log.info("keyword" + cri.getKeyword());
+
+		if (cri.getKeyword() == null) {
+			list = mapper.getList(cri);
+			total = mapper.getTotal();
+		} else {
+			list = bmapper.search(cri);
+			log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+cri.getKeyword());
+			log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+cri.getType());
+			log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+list.toString());
+		}
+
 		PageMaker maker = new PageMaker(cri.getPage(), mapper.getTotal());
-		
-		List<BoardVO> list = mapper.getList(cri);
-		
-		int total = mapper.getTotal();
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("maker", maker);
 	}
-	
+
 	@GetMapping("/insert")
 	public void insert() {
-		
-		
 	}
-	
+
 	@PostMapping("/insert")
-	public String insertPost(BoardVO vo,RedirectAttributes type) {
+	public String insertPost(BoardVO vo, RedirectAttributes type) {
 		bmapper.insert(vo);
 		type.addFlashAttribute("type", "success");
 		return "redirect:/board/list";
 	}
+
+	@GetMapping("/view")
+	public void viewGet(int bno, Model model) {
+
+		BoardVO vo = bmapper.view(bno);
+
+		model.addAttribute("vo", vo);
+
+	}
+
+	@GetMapping("/update")
+	public void updateGet(int bno, Model model) {
+		BoardVO vo = bmapper.view(bno);
+
+		model.addAttribute("vo", vo);
+
+	}
+
+	@PostMapping("/update")
+	public String updatePost(BoardVO vo) {
+		bmapper.update(vo);
+
+		return "redirect:/board/list";
+	}
+
+	@PostMapping("/delete")
+	public String delete(int bno, RedirectAttributes type) {
+
+		bmapper.delete(bno);
+		type.addFlashAttribute("type", "success");
+		return "redirect:/board/list";
+	}
+
 }
