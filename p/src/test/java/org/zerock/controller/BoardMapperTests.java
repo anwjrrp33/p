@@ -24,19 +24,6 @@ public class BoardMapperTests {
 	private BoardMapper mapper;
 
 	@Test
-	public void mapSearch() {
-		Map<String, String> map = new HashMap<>();
-		String keyword = "테스트";
-
-		map.put("t", keyword);
-		map.put("c", keyword);
-		map.put("w", keyword);
-
-		/* mapper.search(map, new Criteria(2)); */
-
-	}
-
-	@Test
 	public void viewPage() {
 		int bno = 607;
 		
@@ -60,8 +47,7 @@ public class BoardMapperTests {
 		
 		Criteria cri = new Criteria();
 		
-		
-		cri.setKeyword("파이리");
+		cri.setKeyword("t");
 		
 		cri.setType("t");
 		

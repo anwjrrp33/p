@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,10 +47,26 @@ public class ReplyController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	
-	@GetMapping("/list/{rno}")
+	@GetMapping("/read/{rno}")
 	public ResponseEntity<ReplyVO> replyRead(@PathVariable("rno") int rno) {
-		
 		return new ResponseEntity<>(mapper.readReply(rno), HttpStatus.OK);
 	}
 	
+	@DeleteMapping("/delete/{rno}")
+	public ResponseEntity<String> replyDelete(@PathVariable("rno") int rno) {
+		
+		mapper.deleteReply(rno);
+		
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<String> replyUpdate(@RequestBody ReplyVO vo) {
+		log.info(vo.getRno());
+		log.info(vo.getReple());
+		log.info(vo.getReplyer());
+		mapper.updateReply(vo);
+		
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
 }

@@ -5,7 +5,7 @@
 <mapper namespace="org.zerock.mapper.PageMapper">
 
 	<select id="getList" resultType="org.zerock.domain.BoardVO">
-		select * from tbl_board order by
+		select bno, title, content, writer, date_format(regdate, "%Y-%m-%d") as regdate, updatedate from tbl_board order by
 		bno desc limit #{skip}, 10
 	</select>
 

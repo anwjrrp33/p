@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import java.lang.reflect.Parameter;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class BoardController {
 		model.addAttribute("cri", cri);
 		model.addAttribute("list", list);
 		model.addAttribute("maker", maker);
+		
+		log.info("list: " + list);
 	}
 
 	@GetMapping("/insert")
